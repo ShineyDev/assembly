@@ -2,7 +2,7 @@
 ; hello.asm
 ;
 ; This is an x86-64 assembly program that writes "Hello, World!\n"
-; to stdout and then exits.
+; to stdout.
 ;
 ; This was my first native assembly program. I like it.
 ;
