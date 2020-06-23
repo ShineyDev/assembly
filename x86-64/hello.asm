@@ -18,8 +18,8 @@ section .text
 _start:
     mov     rax, 1              ; write(
     mov     rdi, 1              ;   stdout,
-    mov     rsi, message        ;   message,
-    mov     rdx, message_len    ;   len(message),
+    mov     rsi, msg            ;   message,
+    mov     rdx, msg_l          ;   len(message),
     syscall                     ; )
 
     mov     rax, 60             ; exit(
@@ -28,5 +28,5 @@ _start:
 
 section .data
 
-message:        db      "Hello, World!", 10
-message_len:    equ     $-message
+msg:        db      "Hello, World!", 10
+msg_l:      equ     $-msg
