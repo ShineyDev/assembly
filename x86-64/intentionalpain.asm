@@ -23,7 +23,6 @@ section .text
 
 global _start
 _start:
-
     rdseed  r8                                      ; r8 = random.seed()
     mov     r9, r8
     and     r9, 01                                  ; r9 = r8[0] - only get the first bit
@@ -35,7 +34,6 @@ _start:
     jmp     _good_day                               ; else: _good_day()
 
 _bad_day:
-
     mov     rdi, stderr                             ; write to stderr just to be a nuisance
     mov     rsi, error_message                      ; put the location of what we're writing into a register
     mov     rdx, error_message_length               ; now tell linux how many bytes we're writing
@@ -44,7 +42,6 @@ _bad_day:
     jmp _purgatory                                  ; to the abyss we go
 
 _good_day:
-
     mov     rdi, stdout                             ; write to stdout
     mov     rsi, success_message                    ; put the location of what we're writing into a register
     mov     rdx, success_message_length             ; now tell linux how many bytes we're writing
