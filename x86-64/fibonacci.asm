@@ -25,7 +25,7 @@ _start_fib_loop:
     call    write_int
 
     mov     rdi, 1
-    mov     rsi, space
+    mov     rsi, sp
     mov     rdx, 1
     call    write
 
@@ -38,7 +38,7 @@ _start_fib_loop:
     jle     _start_fib_loop
 
     mov     rdi, 1
-    mov     rsi, newline
+    mov     rsi, lf
     mov     rdx, 1
     call    write
 
@@ -48,5 +48,5 @@ _start_fib_loop:
 
 section .data
 
-newline:    db      0x0A
-space:      db      0x20
+lf:         db      0x0A
+sp:         db      0x20
