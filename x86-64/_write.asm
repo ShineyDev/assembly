@@ -12,9 +12,12 @@
 section .text
 
 ; parameters:
-; - int    stream descriptor
-; - char*  buffer
-; - int    len(buffer)
+;   rdi: stream descriptor
+;   rsi: buffer
+;   rdx: len(buffer)
+;
+; returns:
+;   rax: len(buffer)
 write:
     push    rcx                        ; syscall sets rcx=rip
     push    r11                        ; syscall sets r11=rflags
@@ -28,8 +31,11 @@ write:
     ret
 
 ; parameters:
-; - int  stream descriptor
-; - int  int
+;   rdi: stream descriptor
+;   rsi: int
+;
+; returns:
+;   rax: len(buffer)
 write_int:
     xor     r8, r8                     ; length counter
 
