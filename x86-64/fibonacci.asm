@@ -25,7 +25,7 @@ _start_fib_loop:
     call    write_int
 
     mov     rdi, 1
-    mov     rsi, sp
+    mov     rsi, spc
     mov     rdx, 1
     call    write
 
@@ -49,4 +49,4 @@ _start_fib_loop:
 section .data
 
 lf:         db      0x0A
-sp:         db      0x20
+spc:        db      0x20
