@@ -3,9 +3,9 @@
 ;
 ; This is an x86-64 assembly program for having a bad time.
 ;
-; nasm -f elf64 -o write.o write.asm
+; nasm -f elf64 -o _write.o _write.asm
 ; nasm -f elf64 -o intentionalpain.o intentionalpain.asm
-; ld -o intentionalpain intentionalpain.o write.o
+; ld -o intentionalpain intentionalpain.o _write.o
 ; ./intentionalpain
 ; ---------------------------------------------------------------------
 

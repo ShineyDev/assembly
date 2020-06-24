@@ -4,9 +4,9 @@
 ; This is an x86-64 assembly program that writes the Fibonacci
 ; sequence up to 1000, separated by spaces, to stdout.
 ;
-; nasm -f elf64 -o write.o write.asm
+; nasm -f elf64 -o _write.o _write.asm
 ; nasm -f elf64 -o fibonacci.o fibonacci.asm
-; ld -o fibonacci fibonacci.o write.o
+; ld -o fibonacci fibonacci.o _write.o
 ; ./fibonacci
 ; ---------------------------------------------------------------------
 
