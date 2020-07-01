@@ -3,19 +3,22 @@
 ;
 ; This is an x86-64 assembly program for having a bad time.
 ;
+; nasm -f elf64 -o _random.o _random.asm
 ; nasm -f elf64 -o _write.o _write.asm
 ; nasm -f elf64 -o intentionalpain.o intentionalpain.asm
-; ld -o intentionalpain intentionalpain.o _write.o
+; ld -o intentionalpain intentionalpain.o _random.o _write.o
 ; ./intentionalpain
 ; ---------------------------------------------------------------------
 
     global  _start
+    extern  random
     extern  write
 
 section .text
 
 _start:
-    rdseed  r8                         ; r8 = random.seed()
+    call    random
+    mov     r8, rax
     and     r8, 1b                     ; get the first bit
 
     test    r8, r8                     ; zf = ~bool(r8)
