@@ -1,8 +1,8 @@
 ; ---------------------------------------------------------------------
 ; fizzbuzz.asm
 ;
-; This is an x86-64 assembly program that writes FizzBuzz 1-100 to
-; stdout.
+; This is an x86-64 assembly program that writes FizzBuzz 1-100,
+; separated by spaces, to stdout.
 ;
 ; I'm bored.
 ;
@@ -66,8 +66,8 @@ _start_write_loop_15:
 
 _start_write_loop_sep:
     mov     rdi, 1
-    mov     rsi, sep
-    mov     rdx, sep_l
+    mov     rsi, spc
+    mov     rdx, 1
     call    write
 
     inc     r12
@@ -104,7 +104,6 @@ section .data
 
 fizz:       db      "fizz"
 buzz:       db      "buzz"
-sep:        db      ", "
-sep_l:      equ     $-sep
 
+spc         db      0x20
 lf:         db      0x0A
