@@ -7,6 +7,7 @@
 ; ---------------------------------------------------------------------
 
     global  write
+    global  write_cstring
     global  write_int
 
 section .text
@@ -27,6 +28,25 @@ write:
 
     pop     r11
     pop     rcx
+
+    ret
+
+; parameters:
+;   rdi: stream descriptor
+;   rsi: buffer
+;
+; returns:
+;   rax: len(buffer)
+write_cstring:
+    lea     r8, [rsi]
+write_cstring_null_loop:
+    inc     r8
+    cmp     [r8], byte 0x00
+    jne     write_cstring_null_loop
+
+    mov     rdx, r8                    ; r8 points to the null-term
+    sub     rdx, rsi                   ; so r8-start is the length
+    call    write
 
     ret
 
