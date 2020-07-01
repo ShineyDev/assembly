@@ -6,13 +6,15 @@
 ;
 ; I'm bored.
 ;
+; nasm -f elf64 -o _math.o _math.asm
 ; nasm -f elf64 -o _write.o _write.asm
 ; nasm -f elf64 -o fizzbuzz.o fizzbuzz.asm
-; ld -o fizzbuzz fizzbuzz.o _write.o
+; ld -o fizzbuzz fizzbuzz.o _math.o _write.o
 ; ./fizzbuzz
 ; ---------------------------------------------------------------------
 
     global  _start
+    extern  modulo
     extern  write
     extern  write_int
 
@@ -83,22 +85,6 @@ _start_write_loop_sep:
     mov     rax, 60                    ; exit(
     mov     rdi, 0                     ;   0,
     syscall                            ; )
-
-; parameters:
-;   rdi: dividend
-;   rsi: divisor
-;
-; returns:
-;   rax: modulo
-modulo:
-    xor     rdx, rdx
-    mov     rax, rdi
-    mov     rcx, rsi
-    div     rcx
-
-    mov     rax, rdx
-
-    ret
 
 section .data
 
