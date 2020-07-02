@@ -18,10 +18,10 @@ section .text
 
 _start:
     call    random
-    mov     r8, rax
-    and     r8, 1b                     ; get the first bit
+    mov     r12, rax
+    and     r12, 0b1                   ; get the first bit
 
-    test    r8, r8                     ; zf = ~bool(r8)
+    test    r12, r12                   ; zf = ~bool(r8)
     jnz     _start_good                ; if zf == 1: jmp _start_good
 _start_bad:
     mov     rdi, 2                     ; write to stderr just to be a nuisance
@@ -42,7 +42,7 @@ _start_good:
 
 section .data
 
-bad_msg:    db      "Uh-oh!", 10
+bad_msg:    db      "Uh-oh!", 0x0A
 bad_msg_l:  equ     $-bad_msg
-good_msg:   db      "Have a nice day!", 10
+good_msg:   db      "Have a nice day!", 0x0A
 good_msg_l: equ     $-good_msg

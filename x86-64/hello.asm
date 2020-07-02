@@ -28,5 +28,5 @@ _start:
 
 section .data
 
-msg:        db      "Hello, World!", 10
+msg:        db      "Hello, World!", 0x0A
 msg_l:      equ     $-msg

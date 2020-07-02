@@ -17,11 +17,11 @@
 section .text
 
 _start:
-    mov     r10, 0                     ; a = 0
-    mov     r11, 1                     ; b = 1
+    mov     r12, 0                     ; a = 0
+    mov     r13, 1                     ; b = 1
 _start_fib_loop:
     mov     rdi, 1
-    mov     rsi, r10
+    mov     rsi, r12
     call    write_int
 
     mov     rdi, 1
@@ -29,12 +29,12 @@ _start_fib_loop:
     mov     rdx, 1
     call    write
 
-    mov     r12, r10                   ; c = a
-    add     r12, r11                   ; c += b
-    mov     r10, r11                   ; a = b
-    mov     r11, r12                   ; b = c
+    mov     r14, r12                   ; c = a
+    add     r14, r13                   ; c += b
+    mov     r12, r13                   ; a = b
+    mov     r13, r14                   ; b = c
 
-    cmp     r10, 1000
+    cmp     r12, 1000
     jle     _start_fib_loop
 
     mov     rdi, 1
