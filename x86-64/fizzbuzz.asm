@@ -26,20 +26,20 @@ _start_write_loop:
     mov     rdi, r12
     mov     rsi, 15
     call    modulo
-    cmp     rax, 0                     ; if r12 % 15 == 0:
-    je      _start_write_loop_15       ; jmp _start_write_loop_15
+    test    rax, rax                   ; if r12 % 15 == 0:
+    jz      _start_write_loop_15       ; jmp _start_write_loop_15
 
     mov     rdi, r12
     mov     rsi, 3
     call    modulo
-    cmp     rax, 0                     ; if r12 % 3 == 0:
-    je      _start_write_loop_3        ; jmp _start_write_loop_3
+    test    rax, rax                   ; if r12 % 3 == 0:
+    jz      _start_write_loop_3        ; jmp _start_write_loop_3
 
     mov     rdi, r12
     mov     rsi, 5
     call    modulo
-    cmp     rax, 0                     ; if r12 % 5 == 0:
-    je      _start_write_loop_5        ; jmp _start_write_loop_5
+    test    rax, rax                   ; if r12 % 5 == 0:
+    jz      _start_write_loop_5        ; jmp _start_write_loop_5
 
     mov     rdi, 1
     mov     rsi, r12
@@ -83,7 +83,7 @@ _start_write_loop_sep:
     call    write
 
     mov     rax, 60                    ; exit(
-    mov     rdi, 0                     ;   0,
+    xor     rdi, rdi                   ;   0,
     syscall                            ; )
 
 section .data

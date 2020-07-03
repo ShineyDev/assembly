@@ -20,8 +20,7 @@ random:
     pushf
     pop     r8
     and     r8, 0b1
-    cmp     r8, 0b1
-    jne     random
+    jz      random
 
     ret
 
@@ -33,7 +32,6 @@ random_seed:
     pushf
     pop     r8
     and     r8, 0b1
-    cmp     r8, 0b1
-    jne     random_seed
+    jz      random_seed
 
     ret

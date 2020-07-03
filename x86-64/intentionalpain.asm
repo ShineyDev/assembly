@@ -20,9 +20,8 @@ _start:
     call    random
     mov     r12, rax
     and     r12, 0b1                   ; get the first bit
+    jnz     _start_good                ; if zf: jmp _start_good
 
-    test    r12, r12                   ; zf = ~bool(r8)
-    jnz     _start_good                ; if zf == 1: jmp _start_good
 _start_bad:
     mov     rdi, 2                     ; write to stderr just to be a nuisance
     mov     rsi, bad_msg               ; put the location of what we're writing into a register
@@ -30,6 +29,7 @@ _start_bad:
     call    write
 
     hlt                                ; we are not a kernel -> fast SIGSEGV :)
+
 _start_good:
     mov     rdi, 1                     ; write to stdout
     mov     rsi, good_msg              ; put the location of what we're writing into a register
@@ -37,7 +37,7 @@ _start_good:
     call    write
 
     mov     rax, 60                    ; exit(
-    mov     rdi, 0                     ;   0,
+    xor     rdi, rdi                   ;   0,
     syscall                            ; )
 
 section .data

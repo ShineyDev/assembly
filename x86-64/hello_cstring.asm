@@ -23,7 +23,7 @@ _start:
     call    write_cstring
 
     mov     rax, 60             ; exit(
-    mov     rdi, 0              ;   0,
+    xor     rdi, rdi            ;   0,
     syscall                     ; )
 
 section .data

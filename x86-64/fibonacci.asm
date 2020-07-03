@@ -17,7 +17,7 @@
 section .text
 
 _start:
-    mov     r12, 0                     ; a = 0
+    xor     r12, r12                   ; a = 0
     mov     r13, 1                     ; b = 1
 _start_fib_loop:
     mov     rdi, 1
@@ -43,7 +43,7 @@ _start_fib_loop:
     call    write
 
     mov     rax, 60                    ; exit(
-    mov     rdi, 0                     ;   0,
+    xor     rdi, rdi                   ;   0,
     syscall                            ; )
 
 section .data
