@@ -16,11 +16,7 @@ section .text
 ;   rax: random number
 random:
     rdrand  rax
-
-    pushf
-    pop     r8
-    and     r8, 0b1
-    jz      random
+    jnc     random
 
     ret
 
@@ -28,10 +24,6 @@ random:
 ;   rax: random seed
 random_seed:
     rdseed  rax
-
-    pushf
-    pop     r8
-    and     r8, 0b1
-    jz      random_seed
+    jnc     random_seed
 
     ret
