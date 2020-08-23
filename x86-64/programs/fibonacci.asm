@@ -1,18 +1,17 @@
 ; ---------------------------------------------------------------------
-; fibonacci.asm
+; /x86-64/programs/fibonacci.asm
 ;
-; This is an x86-64 assembly program that writes the Fibonacci
-; sequence up to 1000, separated by spaces, to stdout.
+; An x86-64 assembly which writes the Fibonacci sequence, up to 1000,
+; to STDOUT.
 ;
-; nasm -f elf64 -o _write.o _write.asm
-; nasm -f elf64 -o fibonacci.o fibonacci.asm
-; ld -o fibonacci fibonacci.o _write.o
-; ./fibonacci
+; Requires:
+;   write
 ; ---------------------------------------------------------------------
 
     global  _start
     extern  write
-    extern  write_int
+    extern  write_integer
+
 
 section .text
 
@@ -22,10 +21,10 @@ _start:
 _start_fib_loop:
     mov     rdi, 1
     mov     rsi, r12
-    call    write_int
+    call    write_integer
 
     mov     rdi, 1
-    mov     rsi, spc
+    mov     rsi, sp_
     mov     rdx, 1
     call    write
 
@@ -38,15 +37,16 @@ _start_fib_loop:
     jle     _start_fib_loop
 
     mov     rdi, 1
-    mov     rsi, lf
+    mov     rsi, lf_
     mov     rdx, 1
     call    write
 
-    mov     rax, 60                    ; exit(
-    xor     rdi, rdi                   ;   0,
-    syscall                            ; )
+    mov     rax, 60
+    xor     rdi, rdi
+    syscall
+
 
 section .data
 
-lf:         db      0x0A
-spc:        db      0x20
+lf_:        db      0x0A
+sp_:        db      0x20

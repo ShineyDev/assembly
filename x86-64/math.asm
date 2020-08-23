@@ -1,21 +1,22 @@
 ; ---------------------------------------------------------------------
-; _math.asm
+; /x86-64/math.asm
 ;
-; This is an x86-64 assembly extension for... math.
-;
-; nasm -f elf64 -o _math.o _math.asm
+; An x86-64 assembly for... math.
 ; ---------------------------------------------------------------------
 
     global  modulo
 
+
 section .text
 
-; parameters:
-;   rdi: dividend
-;   rsi: divisor
+; Yields the remainder of the division ``rdi / rsi``.
 ;
-; returns:
-;   rax: modulo
+; Parameters
+;   rdi: The dividend.
+;   rsi: The divisor.
+;
+; Returns
+;   rax: The modulo of the parameters.
 modulo:
     xor     rdx, rdx
     mov     rax, rdi

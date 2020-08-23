@@ -1,42 +1,39 @@
 ; ---------------------------------------------------------------------
-; _write.asm
+; /x86-64/write.asm
 ;
-; This is an x86-64 assembly extension for writing to streams.
-;
-; nasm -f elf64 -o _write.o _write.asm
+; An x86-64 assembly for writing to streams.
 ; ---------------------------------------------------------------------
 
     global  write
     global  write_cstring
-    global  write_int
+    global  write_integer
+
 
 section .text
 
-; parameters:
-;   rdi: stream descriptor
-;   rsi: buffer
-;   rdx: len(buffer)
+; Writes a string buffer to a stream.
+; 
+; Parameters
+;   rdi: The descriptor of the stream to write to.
+;   rsi: The memory address of the buffer to read from.
+;   rdx: The number of bytes to read.
 ;
-; returns:
-;   rax: len(buffer)
+; Returns
+;   rax: The number of bytes written.
 write:
-    push    rcx                        ; syscall sets rcx=rip
-    push    r11                        ; syscall sets r11=rflags
-
     mov     rax, 1
     syscall
 
-    pop     r11
-    pop     rcx
-
     ret
 
-; parameters:
-;   rdi: stream descriptor
-;   rsi: buffer
+; Writes a C-string buffer to a stream.
 ;
-; returns:
-;   rax: len(buffer)
+; Parameters
+;   rdi: The descriptor of the stream to write to.
+;   rsi: The memory address of the buffer to read from.
+;
+; Returns
+;   rax: The number of bytes written.
 write_cstring:
     lea     r8, [rsi]
 write_cstring_null_loop:
@@ -44,24 +41,26 @@ write_cstring_null_loop:
     cmp     [r8], byte 0x00
     jne     write_cstring_null_loop
 
-    mov     rdx, r8                    ; r8 points to the null-term
+    mov     rdx, r8                    ; r8 points to the null-terminator
     sub     rdx, rsi                   ; so r8-start is the length
     call    write
 
     ret
 
-; parameters:
-;   rdi: stream descriptor
-;   rsi: int
+; Writes an integer buffer to a stream.
 ;
-; returns:
-;   rax: len(buffer)
-write_int:
+; Parameters
+;   rdi: The descriptor of the stream to write to.
+;   rsi: The memory address of the buffer to read from.
+;
+; Returns
+;   rax: The number of bytes written.
+write_integer:
     xor     r8, r8                     ; length counter
 
     mov     rax, rsi                   ; dividend
     mov     rcx, 10                    ; divisor
-write_int_div_loop:
+write_integer_div_loop:
     inc     r8
 
     xor     rdx, rdx                   ; remainder
@@ -69,17 +68,17 @@ write_int_div_loop:
     push    rdx
 
     test    rax, rax
-    jnz     write_int_div_loop
-    
+    jnz     write_integer_div_loop
+
     lea     r9, [buffer]
     mov     rcx, r8                    ; loop counter
-write_int_build_loop:
+write_integer_build_loop:
     pop     rax
     add     rax, 0x30                  ; ascii conversion
     mov     [r9], rax
     inc     r9
 
-    loop    write_int_build_loop
+    loop    write_integer_build_loop
 
     mov     rsi, buffer
     mov     rdx, r8
@@ -87,6 +86,7 @@ write_int_build_loop:
 
     ret
 
+
 section .bss
 
-buffer:     resb    1
+buffer:     resb    8

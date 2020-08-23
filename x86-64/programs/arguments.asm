@@ -1,19 +1,17 @@
 ; ---------------------------------------------------------------------
-; arguments.asm
+; /x86-64/programs/arguments.asm
 ;
-; This is an x86-64 assembly program that writes argc and argv[0..] to
-; stdout.
+; An x86-64 assembly which writes argc and argv to STDOUT.
 ;
-; nasm -f elf64 -o _write.o _write.asm
-; nasm -f elf64 -o arguments.o arguments.asm
-; ld -o arguments arguments.o _write.o
-; ./arguments oranges
+; Requires:
+;   write
 ; ---------------------------------------------------------------------
 
     global  _start
     extern  write
     extern  write_cstring
-    extern  write_int
+    extern  write_integer
+
 
 section .text
 
@@ -22,10 +20,10 @@ _start:
 
     mov     rdi, 1
     mov     rsi, r12
-    call    write_int
+    call    write_integer
 
     mov     rdi, 1
-    mov     rsi, lf
+    mov     rsi, lf_
     mov     rdx, 1
     call    write
 
@@ -38,7 +36,7 @@ _start_argv_loop:
     call    write_cstring
 
     mov     rdi, 1
-    mov     rsi, lf
+    mov     rsi, lf_
     mov     rdx, 1
     call    write
 
@@ -49,6 +47,7 @@ _start_argv_loop:
     mov     rdi, 0
     syscall
 
+
 section .data
 
-lf:         db      0x0A
+lf_:        db      0x0A

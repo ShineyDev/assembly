@@ -1,9 +1,7 @@
-# ignore everything... except for extension'd files and folders
 *
-!/**/
+!**/
 !*.*
-
 *.o
 
-/.git/
-/.vs/
+.git/
+.vs/

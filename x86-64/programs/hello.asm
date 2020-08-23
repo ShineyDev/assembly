@@ -1,17 +1,13 @@
 ; ---------------------------------------------------------------------
-; hello.asm
+; /x86-64/programs/hello.asm
 ;
-; This is an x86-64 assembly program that writes "Hello, World!\n"
-; to stdout.
+; An x86-64 assembly which writes "Hello, World!\n" to STDOUT.
 ;
 ; This was my first native assembly program. I like it.
-;
-; nasm -f elf64 -o hello.o hello.asm
-; ld -o hello hello.o
-; ./hello
 ; ---------------------------------------------------------------------
 
     global  _start
+
 
 section .text
 
@@ -25,6 +21,7 @@ _start:
     mov     rax, 60             ; exit(
     xor     rdi, rdi            ;   0,
     syscall                     ; )
+
 
 section .data
 

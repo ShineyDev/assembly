@@ -1,22 +1,18 @@
 ; ---------------------------------------------------------------------
-; fizzbuzz.asm
+; /x86-64/programs/fizzbuzz.asm
 ;
-; This is an x86-64 assembly program that writes FizzBuzz 1-100,
-; separated by spaces, to stdout.
+; An x86-64 assembly which writes FizzBuzz, up too 100, to STDOUT.
 ;
-; I'm bored.
-;
-; nasm -f elf64 -o _math.o _math.asm
-; nasm -f elf64 -o _write.o _write.asm
-; nasm -f elf64 -o fizzbuzz.o fizzbuzz.asm
-; ld -o fizzbuzz fizzbuzz.o _math.o _write.o
-; ./fizzbuzz
+; Requires:
+;   math
+;   write
 ; ---------------------------------------------------------------------
 
     global  _start
     extern  modulo
     extern  write
-    extern  write_int
+    extern  write_integer
+
 
 section .text
 
@@ -26,24 +22,24 @@ _start_write_loop:
     mov     rdi, r12
     mov     rsi, 15
     call    modulo
-    test    rax, rax                   ; if r12 % 15 == 0:
-    jz      _start_write_loop_15       ; jmp _start_write_loop_15
-
-    mov     rdi, r12
-    mov     rsi, 3
-    call    modulo
-    test    rax, rax                   ; if r12 % 3 == 0:
-    jz      _start_write_loop_3        ; jmp _start_write_loop_3
+    test    rax, rax                   ; r12 % 15 == 0
+    jz      _start_write_loop_15
 
     mov     rdi, r12
     mov     rsi, 5
     call    modulo
-    test    rax, rax                   ; if r12 % 5 == 0:
-    jz      _start_write_loop_5        ; jmp _start_write_loop_5
+    test    rax, rax                   ; r12 % 5 == 0
+    jz      _start_write_loop_5
+
+    mov     rdi, r12
+    mov     rsi, 3
+    call    modulo
+    test    rax, rax                   ; r12 % 3 == 0
+    jz      _start_write_loop_3
 
     mov     rdi, 1
     mov     rsi, r12
-    call    write_int
+    call    write_integer
     jmp     _start_write_loop_sep
 
 _start_write_loop_3:
@@ -63,12 +59,12 @@ _start_write_loop_5:
 _start_write_loop_15:
     mov     rdi, 1
     mov     rsi, fizz
-    mov     rdx, 8                     ; let's save eight bytes* of memory :)
+    mov     rdx, 8
     call    write
 
 _start_write_loop_sep:
     mov     rdi, 1
-    mov     rsi, spc
+    mov     rsi, sp_
     mov     rdx, 1
     call    write
 
@@ -78,18 +74,19 @@ _start_write_loop_sep:
     jne     _start_write_loop
 
     mov     rdi, 1
-    mov     rsi, lf
+    mov     rsi, lf_
     mov     rdx, 1
     call    write
 
-    mov     rax, 60                    ; exit(
-    xor     rdi, rdi                   ;   0,
-    syscall                            ; )
+    mov     rax, 60
+    xor     rdi, rdi
+    syscall
+
 
 section .data
 
 fizz:       db      "fizz"
 buzz:       db      "buzz"
 
-spc         db      0x20
-lf:         db      0x0A
+sp_:        db      0x20
+lf_:        db      0x0A
