@@ -16,7 +16,7 @@ Usage
 
 .. code-block:: sh
 
-	nasm -f elf64 -o math.o math.asm
+    nasm -f elf64 -o math.o math.asm
     nasm -f elf64 -o write.o write.asm
     nasm -f elf64 -o fizzbuzz.o fizzbuzz.asm
     ld -o fizzbuzz fizzbuzz.o math.o write.o
